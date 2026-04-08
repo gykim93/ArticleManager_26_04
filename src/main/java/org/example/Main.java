@@ -34,17 +34,28 @@ public class Main {
         System.out.print("내용 : ");
         String body = sc.nextLine().trim();
 
+        Article article = new Article(id, title, body);
+        articles.add(article);
+
         System.out.printf("%d번 글이 작성되었습니다.\n", id);
         lastArticleId++;
       }
     }
 
 
-
     System.out.println("== 프로그램 종료 ==");
     sc.close();
   }
 }
-class Article {
 
+class Article {
+  private int id;
+  private String title;
+  private String body;
+
+  public Article(int id, String title, String body) {
+    this.id = id;
+    this.title = title;
+    this.body = body;
+  }
 }

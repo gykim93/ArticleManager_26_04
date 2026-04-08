@@ -28,6 +28,7 @@ public class Main {
       if (cmd.equals("article write")) {
         System.out.println("== 게시글 작성 ==");
         int id = lastArticleId + 1;
+
         System.out.print("제목 : ");
         String title = sc.nextLine().trim();
 
@@ -39,6 +40,7 @@ public class Main {
 
         System.out.printf("%d번 글이 작성되었습니다.\n", id);
         lastArticleId++;
+
       } else if (cmd.equals("article list")) {
         System.out.println("== 게시물 목록 ==");
         if (articles.size() == 0) {
@@ -50,10 +52,26 @@ public class Main {
             System.out.printf(" %d  /  %s  /  %s  \n", article.getId(), article.getTitle(), article.getBody());
           }
         }
+      } else if (cmd.startsWith("article delete")) {
+        System.out.println("== 게시글 삭제 ==");
+        int id = Integer.parseInt(cmd.split(" ")[2]);
+
+        Article foundArticle = null;
+
+        for (Article article : articles) {
+          if (article.getId() == id) {
+            foundArticle = article;
+            break;
+          }
+        }
+        if (foundArticle == null) {
+          System.out.println("해당 게시글은 없습니다.");
+          continue;
+        }
+        articles.remove(foundArticle);
+        System.out.println(id + "번 게시글이 삭제되었습니다.");
       }
     }
-
-
     System.out.println("== 프로그램 종료 ==");
     sc.close();
   }

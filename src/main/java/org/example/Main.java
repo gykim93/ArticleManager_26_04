@@ -49,10 +49,15 @@ public class Main {
         if (articles.size() == 0) {
           System.out.println("게시글이 존재하지 않습니다.");
         } else {
-          System.out.println(" 번호  /  제목  /  내용  ");
+          System.out.println(" 번호  /  날짜  /  제목  /  내용  ");
           for (int i = articles.size() - 1; i >= 0; i--) {
             Article article = articles.get(i);
-            System.out.printf(" %d  /  %s  /  %s  \n", article.getId(), article.getTitle(), article.getBody());
+            if (Util.getNowStr().split(" ")[0].equals(article.getRegDate().split(" ")[0])) {
+              System.out.printf(" %d  /  %s  /  %s  /  %s  \n", article.getId(), article.getRegDate().split(" ")[1], article.getTitle(), article.getBody());
+            } else {
+              System.out.printf(" %d  /  %s  /  %s  /  %s  \n", article.getId(), article.getRegDate().split(" ")[0], article.getTitle(), article.getBody());
+            }
+
           }
         }
       } else if (cmd.startsWith("article delete")) {
@@ -100,6 +105,8 @@ public class Main {
 
         foundArticle.setTitle(newTitle);
         foundArticle.setBody(newBody);
+
+        foundArticle.setUpdateDate(Util.getNowStr());
         System.out.println(id + "번 게시글이 수정되었습니다.");
       } else if (cmd.startsWith("article detail")) {
         System.out.println("== 게시글 상세보기 ==");
@@ -118,6 +125,8 @@ public class Main {
           continue;
         }
         System.out.println("번호 : " + foundArticle.getId());
+        System.out.println("작성날짜 : " + foundArticle.getRegDate());
+        System.out.println("수정날짜 : " + foundArticle.getUpdateDate());
         System.out.println("제목 : " + foundArticle.getTitle());
         System.out.println("내용 : " + foundArticle.getBody());
       } else {

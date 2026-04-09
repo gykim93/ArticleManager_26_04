@@ -35,7 +35,10 @@ public class Main {
         System.out.print("내용 : ");
         String body = sc.nextLine().trim();
 
-        Article article = new Article(id, title, body);
+        String regDate = Util.getNowStr();
+        String updateDate = Util.getNowStr();
+
+        Article article = new Article(id, regDate, updateDate, title, body);
         articles.add(article);
 
         System.out.printf("%d번 글이 작성되었습니다.\n", id);
@@ -128,11 +131,38 @@ public class Main {
 
 class Article {
   private int id;
+  private String regDate;
+  private String updateDate;
   private String title;
   private String body;
 
+  public Article(int id, String regDate, String updateDate, String title, String body) {
+    this.id = id;
+    this.regDate = regDate;
+    this.updateDate = updateDate;
+    this.title = title;
+    this.body = body;
+  }
+
+
   public int getId() {
     return id;
+  }
+
+  public String getRegDate() {
+    return regDate;
+  }
+
+  public void setRegDate(String regDate) {
+    this.regDate = regDate;
+  }
+
+  public String getUpdateDate() {
+    return updateDate;
+  }
+
+  public void setUpdateDate(String updateDate) {
+    this.updateDate = updateDate;
   }
 
   public void setId(int id) {
@@ -155,9 +185,4 @@ class Article {
     this.body = body;
   }
 
-  public Article(int id, String title, String body) {
-    this.id = id;
-    this.title = title;
-    this.body = body;
-  }
 }

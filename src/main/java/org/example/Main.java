@@ -67,14 +67,8 @@ public class Main {
         System.out.println("== 게시글 삭제 ==");
         int id = Integer.parseInt(cmd.split(" ")[2]);
 
-        Article foundArticle = null;
+        Article foundArticle = getArticeById(id);
 
-        for (Article article : articles) {
-          if (article.getId() == id) {
-            foundArticle = article;
-            break;
-          }
-        }
         if (foundArticle == null) {
           System.out.println("해당 게시글은 없습니다.");
           continue;
@@ -85,14 +79,8 @@ public class Main {
         System.out.println("== 게시글 수정 ==");
         int id = Integer.parseInt(cmd.split(" ")[2]);
 
-        Article foundArticle = null;
+        Article foundArticle = getArticeById(id);
 
-        for (Article article : articles) {
-          if (article.getId() == id) {
-            foundArticle = article;
-            break;
-          }
-        }
         if (foundArticle == null) {
           System.out.println("해당 게시글은 없습니다.");
           continue;
@@ -115,14 +103,8 @@ public class Main {
         System.out.println("== 게시글 상세보기 ==");
         int id = Integer.parseInt(cmd.split(" ")[2]);
 
-        Article foundArticle = null;
+        Article foundArticle = getArticeById(id);
 
-        for (Article article : articles) {
-          if (article.getId() == id) {
-            foundArticle = article;
-            break;
-          }
-        }
         if (foundArticle == null) {
           System.out.println("해당 게시글은 없습니다.");
           continue;
@@ -139,6 +121,16 @@ public class Main {
     System.out.println("== 프로그램 종료 ==");
     sc.close();
   }
+
+  private static Article getArticeById(int id) {
+    for (Article article : articles) {
+      if (article.getId() == id) {
+        return article;
+      }
+    }
+    return null;
+  }
+
   // 게시글 테스트 데이터 생성
   private static void makeTestData() {
     System.out.println("== 테스트 데이터 생성 ==");

@@ -47,20 +47,38 @@ public class Main {
         System.out.printf("%d번 글이 작성되었습니다.\n", id);
         lastArticleId++;
 
-      } else if (cmd.equals("article list")) {
+      } else if (cmd.startsWith("article list")) {
         System.out.println("== 게시물 목록 ==");
         if (articles.size() == 0) {
           System.out.println("게시글이 존재하지 않습니다.");
-        } else {
-          System.out.println(" 번호  /  날짜  /  제목  /  내용  ");
-          for (int i = articles.size() - 1; i >= 0; i--) {
-            Article article = articles.get(i);
-            if (Util.getNowStr().split(" ")[0].equals(article.getRegDate().split(" ")[0])) {
-              System.out.printf(" %d  /  %s  /  %s  /  %s  \n", article.getId(), article.getRegDate().split(" ")[1], article.getTitle(), article.getBody());
-            } else {
-              System.out.printf(" %d  /  %s  /  %s  /  %s  \n", article.getId(), article.getRegDate().split(" ")[0], article.getTitle(), article.getBody());
-            }
+          continue;
+        }
 
+        String searchKeyword = cmd.substring("article list".length()).trim();
+
+        List<Article> forPrintArticles = articles;
+
+        if (searchKeyword.length() > 0) {
+          System.out.println("검색어 : " + searchKeyword);
+          forPrintArticles = new ArrayList<>();
+
+          for (Article article : articles) {
+            if (article.getTitle().contains(searchKeyword)) {
+              forPrintArticles.add(article);
+            }
+          }
+          if (forPrintArticles.size() == 0) {
+            System.out.println("검색 결과 없음");
+            continue;
+          }
+        }
+        System.out.println(" 번호  /  날짜  /  제목  /  내용  ");
+        for (int i = articles.size() - 1; i >= 0; i--) {
+          Article article = articles.get(i);
+          if (Util.getNowStr().split(" ")[0].equals(article.getRegDate().split(" ")[0])) {
+            System.out.printf(" %d  /  %s  /  %s  /  %s  \n", article.getId(), article.getRegDate().split(" ")[1], article.getTitle(), article.getBody());
+          } else {
+            System.out.printf(" %d  /  %s  /  %s  /  %s  \n", article.getId(), article.getRegDate().split(" ")[0], article.getTitle(), article.getBody());
           }
         }
       } else if (cmd.startsWith("article delete")) {
@@ -75,6 +93,7 @@ public class Main {
         }
         articles.remove(foundArticle);
         System.out.println(id + "번 게시글이 삭제되었습니다.");
+
       } else if (cmd.startsWith("article modify")) {
         System.out.println("== 게시글 수정 ==");
         int id = Integer.parseInt(cmd.split(" ")[2]);

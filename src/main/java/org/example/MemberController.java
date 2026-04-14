@@ -4,19 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MemberController {
+public class MemberController extends Contoroller {
 
-  Scanner sc;
+  private Scanner sc;
 
-  int lastMemberId = 3;
-  List<Member> members;
+  private int lastMemberId = 3;
+  private List<Member> members;
+  private String cmd;
 
   public MemberController(Scanner sc) {
     this.sc = sc;
     members = new ArrayList<>();
   }
 
-  public void doJoin() {
+  public void doAction(String cmd, String actionMethodName) {
+    this.cmd = cmd;
+
+    switch (actionMethodName) {
+      case "join":
+        doJoin();
+        break;
+      default:
+        System.out.println("Invalid action method");
+        break;
+    }
+  }
+
+  private void doJoin() {
     System.out.println("==회원 가입==");
     int id = lastMemberId + 1;
     String loginId = null;

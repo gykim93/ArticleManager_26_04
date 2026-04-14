@@ -4,19 +4,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArticleController {
-  Scanner sc;
-
-  int lastArticleId = 3;
-  List<Article> articles;
+public class ArticleController extends Contoroller {
+  private Scanner sc;
+  private int lastArticleId = 3;
+  private List<Article> articles;
+  private String cmd;
 
   public ArticleController(Scanner sc) {
     this.sc = sc;
     articles = new ArrayList<>();
   }
 
+  public void doAction(String cmd, String actionMethodName) {
+    this.cmd = cmd;
+
+    switch (actionMethodName) {
+      case "write":
+        doWrite();
+        break;
+      case "list":
+        showList();
+        break;
+      case "detail":
+        showDetail();
+        break;
+      case "delete":
+        doDelete();
+        break;
+      case "modify":
+        doModify();
+        break;
+      default:
+        System.out.println("Invalid action method");
+        break;
+    }
+  }
+
   // 게시글 작성 함수 구현
-  public void doWrite() {
+  private void doWrite() {
     System.out.println("==게시글 작성==");
     int id = lastArticleId + 1;
 
@@ -35,7 +60,7 @@ public class ArticleController {
   }
 
   // 게시글 목록 함수 구현
-  public void showList(String cmd) {
+  private void showList() {
     System.out.println("==게시글 목록==");
     if (articles.size() == 0) {
       System.out.println("아무것도 없음");
@@ -74,7 +99,7 @@ public class ArticleController {
   }
 
   // 게시글 상세보기 함수 구현
-  public void showDetail(String cmd) {
+  private void showDetail() {
     System.out.println("==게시글 상세보기==");
 
     int id = Integer.parseInt(cmd.split(" ")[2]);
@@ -93,7 +118,7 @@ public class ArticleController {
   }
 
   // 게시글 삭제 함수 구현
-  public void doDelete(String cmd) {
+  private void doDelete() {
     System.out.println("==게시글 삭제==");
 
     int id = Integer.parseInt(cmd.split(" ")[2]);
@@ -109,7 +134,7 @@ public class ArticleController {
   }
 
   // 게시글 수정 함수 구현
-  public void doModify(String cmd) {
+  private void doModify() {
     System.out.println("==게시글 수정==");
 
     int id = Integer.parseInt(cmd.split(" ")[2]);

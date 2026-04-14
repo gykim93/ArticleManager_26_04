@@ -1,6 +1,6 @@
 package org.example;
 
-public class Contoroller {
+public class Controller {
   public void doAction(String cmd, String actionMethodName) {
 
   }

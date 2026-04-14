@@ -1,17 +1,8 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class App {
-
-  List<Article> articles;
-
-  public App() {
-    articles = new ArrayList<>();
-  }
-
   public void run() {
     Scanner sc = new Scanner(System.in);
 
@@ -23,7 +14,7 @@ public class App {
     articleController.makeTestData();
     memberController.makeTestData();
 
-    Contoroller contoroller = null;
+    Controller controller = null;
 
     while (true) {
       System.out.print("명령어 ) ");
@@ -36,23 +27,23 @@ public class App {
         continue;
       }
 
-      String cmdBits = cmd.split(" ");
+      String[] cmdBits = cmd.split(" ");
       String controllerName = cmdBits[0];
-      if (cmdBits.length() == 1) {
+      if (cmdBits.length == 1) {
         System.out.println("명령어 확인 필요");
         continue;
       }
       String actionMethodName = cmdBits[1];
 
       if (controllerName.equals("article")) {
-        contoroller = articleController;
+        controller = articleController;
       } else if (controllerName.equals("member")) {
-        contoroller = memberController;
+        controller = memberController;
       } else {
         System.out.println("지원하지 않는 기능");
         continue;
       }
-      contoroller.doAction(cmd, actionMethodName);
+      controller.doAction(cmd, actionMethodName);
     }
     System.out.println("==프로그램 끝==");
     sc.close();

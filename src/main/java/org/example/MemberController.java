@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MemberController extends Contoroller {
+public class MemberController extends Controller {
 
   private Scanner sc;
-
-  private int lastMemberId = 3;
   private List<Member> members;
   private String cmd;
+  private int lastMemberId = 3;
 
   public MemberController(Scanner sc) {
     this.sc = sc;

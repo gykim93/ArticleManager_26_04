@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArticleController extends Contoroller {
+public class ArticleController extends Controller {
   private Scanner sc;
-  private int lastArticleId = 3;
   private List<Article> articles;
   private String cmd;
+  private int lastArticleId = 3;
 
   public ArticleController(Scanner sc) {
     this.sc = sc;

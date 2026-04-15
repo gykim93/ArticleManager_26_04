@@ -23,6 +23,10 @@ public class ArticleController extends Controller {
 
     switch (actionMethodName) {
       case "write":
+        if (isLogined() == false) {
+          System.out.println("로그인하고 글 쓰기");
+          return;
+        }
         doWrite();
         break;
       case "list":
@@ -32,9 +36,17 @@ public class ArticleController extends Controller {
         showDetail();
         break;
       case "delete":
+        if (isLogined() == false) {
+          System.out.println("로그인하고 글 삭제");
+          return;
+        }
         doDelete();
         break;
       case "modify":
+        if (isLogined() == false) {
+          System.out.println("로그인하고 글 수정");
+          return;
+        }
         doModify();
         break;
       default:
@@ -55,7 +67,7 @@ public class ArticleController extends Controller {
     String regDate = Util.getNowStr();
     String updateDate = Util.getNowStr();
 
-    Article article = new Article(id, regDate, updateDate, title, body);
+    Article article = new Article(id, regDate, updateDate, title, body, loginedMember);
     articles.add(article);
 
     System.out.println(id + "번 글이 작성되었습니다.");
